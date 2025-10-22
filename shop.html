@@ -35,6 +35,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo {
@@ -49,6 +51,7 @@
             display: flex;
             gap: 30px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -82,7 +85,7 @@
         }
 
         .header h1 {
-            font-size: 42px;
+            font-size: 32px;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -251,6 +254,7 @@
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
             transition: transform 0.3s;
+            z-index: 999;
         }
 
         .chat-button:hover {
@@ -283,6 +287,26 @@
             color: #999;
             font-size: 14px;
         }
+
+        footer {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #aaa;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -290,10 +314,10 @@
         <div class="nav-container">
             <div class="logo">🛡️ CyberShop</div>
             <div class="nav-links">
-                <a href="#">Ana Sayfa</a>
-                <a href="#">Ürünler</a>
-                <a href="#">Siparişler</a>
-                <a href="#">Mesajlar</a>
+                <a href="home.html">Ana Sayfa</a>
+                <a href="shop.html">Ürünler</a>
+                <a href="orders.html">Siparişler</a>
+                <a href="messages.html">Mesajlar</a>
                 <div class="user-info">
                     <span>👤 Admin</span>
                     <span>💰 12.5 BTC</span>
@@ -304,8 +328,8 @@
 
     <div class="container">
         <div class="header">
-            <h1>BU SİTE ÖDEV AMAÇLI OLUŞTURULMUŞTUR.ÖDEV BİTTİKTEN SONRA KAPATILACAKTIR.</h1>
-            <p></p>
+            <h1>⚠️ BU SİTE ÖDEV AMAÇLI OLUŞTURULMUŞTUR</h1>
+            <p>Adli Bilişim Dersi - Eğitim Senaryosu</p>
         </div>
 
         <div class="stats">
@@ -340,6 +364,14 @@
 
     <div class="chat-button" onclick="openChat()">💬</div>
 
+    <footer>
+        ⚠️ <b>YASAL UYARI:</b> Bu site, <b>yalnızca eğitim ve adli bilişim dersi kapsamında ödev amacıyla</b> hazırlanmıştır.
+        Buradaki ürünler, açıklamalar ve görseller <b>tamamen kurgusaldır</b> ve hiçbir şekilde gerçek yasa dışı faaliyeti temsil etmez.
+        Bu site üzerinden gerçek bir satış, alışveriş veya veri paylaşımı yapılmamaktadır.
+        <br><br>
+        © 2025 CyberShop (Educational Simulation Project) — Bu platform yalnızca <b>adli bilişim uygulamaları</b> için tasarlanmıştır.
+    </footer>
+
     <script>
         const products = [
             {
@@ -367,7 +399,7 @@
                 name: "Üniversite Veri Tabanları",
                 category: "Database",
                 image: "https://stanforddaily.com/wp-content/uploads/2023/10/akira.png",
-                description: "Sızdırılmış Üniversite e-posta,şifre(hash),kişisel veriler",
+                description: "Sızdırılmış Üniversite e-posta, şifre(hash), kişisel veriler",
                 price: "0.032",
                 stock: "Stokta",
                 btc: "bc1qk7v8y9nwskax5q8fmg6xwujfzqq76jh6n9vhhp"
@@ -375,20 +407,21 @@
             {
                 id: 4,
                 name: "Silahlar",
-                category: "Silah ve Patlayıcı Bomba",
+                category: "Silah ve Patlayıcı",
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJTjXbi97NNdYIQclzs0m_s-HY086XEKSlSy1v1x64j4ut1NrIgZDyrqA6WJlZnHHl77M&usqp=CAU",
                 description: "SİLAH KATALOĞUNDA MEVCUT OLMAYAN SİLAHLAR İSTEĞE ÖZEL GETİRİLİR.",
                 price: "0.045",
                 stock: "Stokta",
                 btc: "bc1qm7f4g8h3j2k5l6n9p0q1r2s3t4u5v6w7x8y9z0"
-            },
- 
+            }
+        ];
+
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(product => `
                 <div class="product-card" onclick="viewProduct(${product.id})">
                     <div class="product-image">
-                        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="emoji">${product.emoji || '📦'}</div>`}
+                        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="emoji">📦</div>`}
                     </div>
                     <div class="product-info">
                         <div class="product-category">${product.category}</div>
@@ -452,7 +485,7 @@
         window.onload = function() {
             renderProducts();
             
-            const sessionData = JSON.parse(localStorage.getItem('cybershop_session'));
+            const sessionData = JSON.parse(localStorage.getItem('cybershop_session') || '{}');
             console.log('Current session:', sessionData);
             
             const visitData = {
@@ -466,11 +499,3 @@
     </script>
 </body>
 </html>
-<footer style="background: rgba(255,255,255,0.05); padding: 20px; text-align: center; font-size: 13px; color: #aaa; border-top: 1px solid rgba(255,255,255,0.1);">
-    ⚠️ <b>YASAL UYARI:</b> Bu site, <b>yalnızca eğitim ve adli bilişim dersi kapsamında ödev amacıyla</b> hazırlanmıştır.
-    Buradaki ürünler, açıklamalar ve görseller <b>tamamen kurgusaldır</b> ve hiçbir şekilde gerçek yasa dışı faaliyeti temsil etmez.
-    Bu site üzerinden gerçek bir satış, alışveriş veya veri paylaşımı yapılmamaktadır.
-    <br><br>
-    © 2025 CyberShop (Educational Simulation Project) — Bu platform yalnızca <b>adli bilişim uygulamaları</b> için tasarlanmıştır.
-</footer>
-
