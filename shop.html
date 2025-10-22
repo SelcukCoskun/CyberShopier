@@ -141,11 +141,21 @@
         .product-image {
             width: 100%;
             height: 250px;
-            object-fit: cover;
             background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-image .emoji {
             font-size: 100px;
         }
 
@@ -336,7 +346,7 @@
                 id: 1,
                 name: "Premium Elma",
                 category: "Kategori A",
-                emoji: "🍎",
+                image: "https://media.istockphoto.com/id/495004667/tr/foto%C4%9Fraf/cocaine-powder.jpg?s=612x612&w=0&k=20&c=goLjNaK59VJIIBDQPzER4yOEiXtQRtKR_Et7gBvMtyg=",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk - örnek: ürün özellikleri, kalite, miktar vb.]",
                 price: "0.025",
                 stock: "Stokta",
@@ -346,7 +356,7 @@
                 id: 2,
                 name: "Special Muz",
                 category: "Kategori B",
-                emoji: "🍌",
+                image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk - örnek: ürün detayları, teslimat süresi vb.]",
                 price: "0.018",
                 stock: "Stokta",
@@ -356,7 +366,7 @@
                 id: 3,
                 name: "Gold Portakal",
                 category: "Kategori A",
-                emoji: "🍊",
+                image: "https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk - örnek: ürün bilgisi, fiyat detayı vb.]",
                 price: "0.032",
                 stock: "Stokta",
@@ -366,7 +376,7 @@
                 id: 4,
                 name: "Exotic Üzüm",
                 category: "Kategori C",
-                emoji: "🍇",
+                image: "https://images.unsplash.com/photo-1599819177331-6d69b7a91b94?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk]",
                 price: "0.045",
                 stock: "Stokta",
@@ -376,7 +386,7 @@
                 id: 5,
                 name: "VIP Kiraz",
                 category: "Özel Ürünler",
-                emoji: "🍒",
+                image: "https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk]",
                 price: "0.065",
                 stock: "Sınırlı",
@@ -386,7 +396,7 @@
                 id: 6,
                 name: "Diamond Çilek",
                 category: "Özel Ürünler",
-                emoji: "🍓",
+                image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk]",
                 price: "0.089",
                 stock: "Stokta",
@@ -396,7 +406,7 @@
                 id: 7,
                 name: "Crystal Şeftali",
                 category: "Kategori B",
-                emoji: "🍑",
+                image: "https://images.unsplash.com/photo-1629828874514-944d8c80c235?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk]",
                 price: "0.028",
                 stock: "Stokta",
@@ -406,7 +416,7 @@
                 id: 8,
                 name: "Platinum Kivi",
                 category: "Kategori A",
-                emoji: "🥝",
+                image: "https://images.unsplash.com/photo-1585059895524-72359e06133a?w=600",
                 description: "[BURAYA SENARYODAKİ AÇIKLAMA GELECEk]",
                 price: "0.038",
                 stock: "Stokta",
@@ -418,7 +428,9 @@
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(product => `
                 <div class="product-card" onclick="viewProduct(${product.id})">
-                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-image">
+                        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="emoji">${product.emoji || '📦'}</div>`}
+                    </div>
                     <div class="product-info">
                         <div class="product-category">${product.category}</div>
                         <div class="product-title">${product.name}</div>
